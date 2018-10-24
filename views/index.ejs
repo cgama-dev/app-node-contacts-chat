@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<% include ./layout/header %>
+
+  <!------ Include the above in your HEAD tag ---------->
+
+  <!-- no additional media querie or css is required -->
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="height:50vh">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h1>Login
+              <h1 />
+              <form action="/login" autocomplete="off" method="post">
+                <div class="form-group">
+                  <input type="text" placeholder="Seu nome" class="form-control" name="nome" >
+                </div>
+                <div class="form-group">
+                  <input type="text" placeholder="Seu email" class="form-control" name="email">
+                </div>                
+                <button type="submit" id="sendlogin" class="btn btn-primary">Entrar</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% include ./layout/footer %>
