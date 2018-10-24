@@ -2,7 +2,9 @@ module.exports = (() => {
 
     const ContatoController = {
         index: (req, res, next) => {
-            res.render('contatos/index')
+            const usuario = req.session.usuario
+            console.log(req.session.usuario);
+            res.render('contatos/index', usuario)
         },
         show: (req, res) => {
             res.send('show cotnatos')
