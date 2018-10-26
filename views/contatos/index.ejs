@@ -1,22 +1,79 @@
 <% include ../layout/header %>
 
-  <!------ Include the above in your HEAD tag ---------->
+    <!------ Include the above in your HEAD tag ---------->
 
-  <!-- no additional media querie or css is required -->
-  <div class="container">
-    <div class="row justify-content-center align-items-center" style="height:50vh">
+    <!-- no additional media querie or css is required -->
+    <div class="container">
 
-    <div class="row">
-        <a class="btn pull-right btn-danger btn-sm " href="/logout"> Sair</a>
-    </div>
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h1>Seja Bem vindo, <%- nome %></h1>
-                <h1>Página de contatos</h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Seja Bem Vindo,
+                    <span style="font-size: 14px">
+                        <%- usuario.nome %>
+                    </span>
+                </h3>
+                <hr>
+                <a class="btn pull-right btn-danger " href="/logout"> Sair</a>
+            </div>
+
+            <div class="col-sm-8 contact-form">
+                <form id="contact" action="/contato" method="post" class="form" role="form">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6 form-group">
+                            <input class="form-control" id="name" name="contato[name]" placeholder="Name" type="text" required autofocus />
+                        </div>
+                        <div class="col-xs-6 col-md-6 form-group">
+                            <input class="form-control" id="email" name="contato[email]" placeholder="Email" type="email" required />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 form-group">
+                            <button class="btn btn-primary pull-right" type="submit">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <table class="table table-striped custab">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th class="text-center">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% contatos.forEach(function(contato, index) { %>
+                            <tr>
+                                <td>
+                                    <%- contato.nome %>
+                                </td>
+                                <td>
+                                    <%- contato.email %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="/contato/<%- index %>/editar">Editar</a>
+                                    <a class="btn btn-primary" href="/contato/<%- index %>">Visualizar</a>
+                                    <a class="btn btn-danger" href="/contato/<%- index %>">Excluir</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <!-- <div class="row col-md-12  custyle">
+          
+        </div> -->
     </div>
-    </div>
-  </div>
-  <% include ../layout/footer %>
+    <!-- <div class="row justify-content-center align-items-center" >
+
+                <div class="col-12">
+                    <div class="container">
+                     
+                    </div>
+
+                </div>
+            </div> -->
+    <!-- </div> -->
+    <% include ../layout/footer %>
