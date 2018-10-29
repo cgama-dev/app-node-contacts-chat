@@ -3,7 +3,7 @@ module.exports = (() => {
     const ContatoController = {
         index: (req, res, next) => {
             const usuario = req.session.usuario
-            const contatos = req.session.contatos
+            const contatos = usuario.contatos
 
             const params = {
                 usuario: usuario,
@@ -13,12 +13,13 @@ module.exports = (() => {
             res.render('contatos/index', params)
         },
         create: (req, res) => {
+
             const contato = {
                 email: req.body.email,
                 nome: req.body.nome
             }
             const usuario = req.session.usuario
-
+            
             usuario.contatos = [...usuario.contatos, contato]
 
             res.redirect('/contatos')
@@ -52,7 +53,7 @@ module.exports = (() => {
         destroy: (req, res) => {
             const usuario = req.body.usuario
             const id = req.params.id
-            
+
             usuario.contatos.splice(id, 1)
             res.redirect('/contatos');
         }

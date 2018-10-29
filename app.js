@@ -7,6 +7,10 @@ const session = require('express-session')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const contatosRouter = require('./routes/contatos')
+const autenticar = require('./middleware/autenticador')
+const {notFound,serverError} = require('./middleware/error')
+
+
 
 const app = express();
 
@@ -25,7 +29,9 @@ app.use(session({ secret: 'chat', resave: false, saveUninitialized: true, }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/contatos', contatosRouter);
+app.use('/contatos', autenticar, contatosRouter);
+app.use(notFound);
+app.use(serverError);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

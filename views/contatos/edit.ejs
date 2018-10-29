@@ -1,0 +1,42 @@
+<% include ../layout/header %>
+
+    <!-- Include the above in your HEAD tag -->
+
+    <!-- no additional media querie or css is required -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Seja Bem Vindo,
+                    <span style="font-size: 14px">
+                        <%- usuario.nome %>
+                    </span>
+                </h3>
+                <hr>
+                <a class="btn pull-right btn-danger " href="/logout"> Sair</a>
+            </div>
+
+            <div class="col-sm-8 contact-form">
+                <form action="/contatos/<%- id %>" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6 form-group">
+                            <input class="form-control" id="name" name="nome" value="<%- nome %>" placeholder="Nome" type="text" required autofocus />
+                        </div>
+                        <div class="col-xs-6 col-md-6 form-group">
+                            <input class="form-control" id="email" name="email" value="<%- email %>" placeholder="Email" type="email" required />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 form-group">
+                            <button class="btn btn-primary pull-right" type="submit">Atualizar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <% include ../layout/footer %>

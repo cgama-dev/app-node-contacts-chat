@@ -10,7 +10,7 @@ module.exports = () => {
             const email = req.body.email
             const nome = req.body.nome
 
-            const contatos = (!(!!req.session.contatos)) ? [] : req.session.contatos
+            // const contatos = (!(!!req.session.contatos)) ? [] : req.session.contatos
 
             if (email && nome) {
                 const usuario = {
@@ -18,8 +18,9 @@ module.exports = () => {
                     nome: nome
                 }
 
+                usuario['contatos'] = []
+                
                 req.session.usuario = usuario               
-                req.session.contatos = [...contatos, usuario]
 
                 res.redirect('/contatos')
 
