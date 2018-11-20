@@ -14,7 +14,7 @@ router.get('/', index)
 router.post('/', create)
 router.get('/:id', show)
 router.get('/:id/editar', edit)
-router.put('/:id', update)
-router.delete('/:id',destroy)
+router.post('/:id', update)
+router.get('/:id/excluir',destroy)
 
 module.exports = router

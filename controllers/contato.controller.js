@@ -19,15 +19,20 @@ module.exports = (() => {
                 nome: req.body.nome
             }
             const usuario = req.session.usuario
-            
+
             usuario.contatos = [...usuario.contatos, contato]
 
             res.redirect('/contatos')
         },
         show: (req, res) => {
-            const id = req.body.id
+            const id = req.params.id
             const contato = req.session.usuario.contatos[id]
-            const params = { contato: contato, id: id }
+            const usuario = req.session.usuario
+            const params = {
+                usuario: usuario,
+                contato: contato,
+                id: id
+            };
 
             res.render('contatos/show', params)
         },
@@ -36,25 +41,33 @@ module.exports = (() => {
             const usuario = req.session.usuario
             const contato = usuario.contatos[id]
             const params = {
-                usuario: usuario
-                , contato: contato
-                , id: id
+                usuario: usuario,
+                contato: contato,
+                id: id
             };
+
+            console.log(params)
 
             res.render('contatos/edit', params);
         },
         update: (req, res) => {
-            const contato = req.body.contato
+
+            const contato = req.body;
+
             const usuario = req.session.usuario;
+
             usuario.contatos[req.params.id] = contato;
 
             res.redirect('/contatos');
         },
         destroy: (req, res) => {
-            const usuario = req.body.usuario
+            const usuario = req.session.usuario;
+
             const id = req.params.id
 
-            usuario.contatos.splice(id, 1)
+            usuario.contatos.splice(id,1)
+
+
             res.redirect('/contatos');
         }
     }

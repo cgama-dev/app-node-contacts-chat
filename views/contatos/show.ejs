@@ -7,35 +7,32 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <h3>Seja Bem Vindo,
-                    <span style="font-size: 14px">
-                        <%- usuario.nome %>
-                    </span>
-                </h3>
-                <hr>
-                <a class="btn pull-right btn-danger " href="/logout"> Sair</a>
+            <h3>Seja Bem Vindo,
+                <span style="font-size: 14px">
+                    <%- usuario.nome %>
+                </span>
+            </h3>
+            <hr>
+            <a class="btn pull-right btn-danger " href="/logout"> Sair</a> 
             </div>
-
             <div class="col-sm-8 contact-form">
-                <form action="/contatos/<%- id %>" method="post">
+                <form action="/contatos/<%- id %>" method="post" class="form">
                     <input type="hidden" name="_method" value="delete">
                     <div class="row">
                         <div class="col-xs-6 col-md-6 form-group">
-                            <input class="form-control" id="name" name="nome" value="<%- nome %>" placeholder="Nome" type="text" required autofocus />
-                        </div>
-                        <div class="col-xs-6 col-md-6 form-group">
-                            <input class="form-control" id="email" name="email" value="<%- email %>" placeholder="Email" type="email" required />
-                        </div>
+                        <p><label>Nome:</label><%- contato.nome %></p>
+                        <p><label>E-mail:</label><%- contato.email %></p>
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-xs-12 col-md-12 form-group">
-                            <button class="btn btn-primary pull-right" type="submit">Excluir</button>
-                            <a href="/contatos/<%- id %>/editar" class="btn btn-primary pull-right" >Editar</button>
+                        <div class="col-xs-12 col-md-12 ">
+                            <a href="/contatos/<%- id %>/excluir" class="btn btn-danger pull-right" >Excluir</a>
+                        </div>
+                        <div class="col-xs-12 col-md-12 ">
+                            <a href="/contatos/<%- id %>/editar" class="btn btn-primary pull-right" >Editar</a>
                         </div>
                     </div>
-                </form>
-                <hr>
+                </form>   
             </div>
         </div>
     </div>
