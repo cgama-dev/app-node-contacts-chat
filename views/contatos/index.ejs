@@ -1,6 +1,8 @@
 <% include ../layout/header %>
 
-    <!------ Include the above in your HEAD tag ---------->
+    
+
+    <!--- Include the above in your HEAD tag -->
 
     <!-- no additional media querie or css is required -->
     <div class="container">
@@ -54,7 +56,8 @@
                                 <td>
                                     <a class="btn btn-success" href="/contatos/<%- index %>/editar">Editar</a>
                                     <a class="btn btn-primary" href="/contatos/<%- index %>">Visualizar</a>
-                                    <a class="btn btn-danger" href="/contatos/<%- index %>/excluir">Excluir</a>
+                                    <!-- <a class="btn btn-danger" href="/contatos/<%- index %>/excluir">Excluir</a> -->
+                                    <a class="btn btn-info" href="/chat/<%- contato.email %>">Conversar</a>
                                 </td>
                             </tr>
                             <% }) %>

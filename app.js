@@ -1,16 +1,26 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
-const cookieParser = require('cookie-parser')
+
 const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
+const chatRouter = require('./routes/chats')
 const contatosRouter = require('./routes/contatos')
 const autenticar = require('./middleware/autenticador')
-const {notFound,serverError} = require('./middleware/error')
+const { notFound, serverError } = require('./middleware/error')
 
+const KEY = 'ntalk.sid'
 
+const SECRET = 'ntalk'
+
+const store = new session.MemoryStore()
+
+const optionsSession = { secret: SECRET, resave: false, saveUninitialized: true, name: KEY, store: store }
+
+const cookie  = cookieParser(SECRET)
 
 const app = express();
 
@@ -20,16 +30,15 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: false
-}));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookie);
+app.use(session(optionsSession));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'chat', resave: false, saveUninitialized: true, }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/contatos', autenticar, contatosRouter);
+app.use('/chat', autenticar, chatRouter);
 app.use(notFound);
 app.use(serverError);
 
