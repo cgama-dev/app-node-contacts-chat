@@ -1,15 +1,16 @@
 <% include ../layout/header %>
     <script src="/javascripts/socket.io.js"></script>
     <script>
-        var socket = io();
+        var socket = io('http://localhost:3005');
+
+        socket.emit('join', '');
 
         socket.on('send-client', function (msg) {
             document.getElementById('chat').innerHTML += msg;
         });
         var enviar = function () {
-            var nome = document.getElementById('nome').value;
             var msg = document.getElementById('msg').value;
-            socket.emit('send-server', { nome: nome, msg: msg });
+            socket.emit('send-server', { msg: msg });
         };
     </script>
 
@@ -18,7 +19,6 @@
     </header>
     <section>
         <pre id="chat"></pre>
-        <input type="hidden" id="nome" value="<%- usuario.nome %>">
         <input type="text" id="msg" placeholder="Mensagem">
         <button onclick="enviar();">Enviar</button>
     </section>

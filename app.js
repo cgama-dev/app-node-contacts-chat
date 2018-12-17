@@ -24,6 +24,12 @@ const cookie  = cookieParser(SECRET)
 
 const app = express();
 
+app.cookie = cookie
+
+app.store = store
+
+app.session = session(optionsSession)
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

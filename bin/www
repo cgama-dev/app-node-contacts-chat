@@ -7,7 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('app-chat-node:server');
 const http = require('http');
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
 /**
@@ -22,41 +22,32 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-
 const server = http.createServer(app);
 
 const io = require('socket.io')(server)
 
-// const KEY = 'ntalk.sid'
+const KEY = 'ntalk.sid'
 
-// const SECRET = 'ntalk'
+const cookie  = app.cookie
 
-// const cookie  = cookieParser(SECRET)
+const store =  app.store
 
-// const store = new session.MemoryStore()
-
-// const optionsSession = { secret: SECRET, resave: false, saveUninitialized: true, name: KEY, store: store }
-
-
-// app.use(cookie);
-
-// app.use(session(optionsSession));
-
-
-// io.set('authorization', function (data, accept) {
-//   cookie(data, {}, function (err) {   
-//     console.log(data)
-//     const sessionID = data.signedCookies[KEY];
-//     store.get(sessionID, function (err, session) {
-//       if (err || !session) {
-//         accept(null, false);
-//       } else {
-//         data.session = session;
-//         accept(null, true);
-//       }
-//     });
-//   });
-// });
+io.set('authorization', function (data, accept) {
+  cookie(data, {}, function (err) {   
+    // console.log(data)
+    const sessionID = data.signedCookies[KEY];
+    
+    store.get(sessionID, function (err, session) {
+      if (err || !session) {
+        accept(null, false);
+      } else {
+        console.log('Verdadeiro')
+        data.session = session;
+        accept(null, true);
+      }
+    });
+  });
+});
 
 const ChatSockets = require('../sockets/chat.sockets')(io)
 

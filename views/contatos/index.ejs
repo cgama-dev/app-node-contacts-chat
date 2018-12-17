@@ -1,6 +1,6 @@
 <% include ../layout/header %>
 
-    
+
 
     <!--- Include the above in your HEAD tag -->
 
@@ -57,7 +57,9 @@
                                     <a class="btn btn-success" href="/contatos/<%- index %>/editar">Editar</a>
                                     <a class="btn btn-primary" href="/contatos/<%- index %>">Visualizar</a>
                                     <!-- <a class="btn btn-danger" href="/contatos/<%- index %>/excluir">Excluir</a> -->
-                                    <a class="btn btn-info" href="/chat/<%- contato.email %>">Conversar</a>
+                                    <a class="btn btn-default" href="/chat/<%- contato.email %>" id="chat_<%- contato.email %>">
+                                        Conversar
+                                    </a>
                                 </td>
                             </tr>
                             <% }) %>
@@ -79,4 +81,15 @@
                 </div>
             </div> -->
     <!-- </div> -->
+    <script src="/javascripts/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3005');
+        socket.on('new-message', function (data) {
+            console.log(data)
+            
+            var chat = document.getElementById('chat_' + data.email);
+            console.log(chat)
+            chat.href += '?' + data.sala;
+        });
+    </script>
     <% include ../layout/footer %>
